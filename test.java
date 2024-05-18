@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CreateTestDirectory {
+public class test {
     public static void main(String[] args) {
         // "/home/test" adında bir klasör oluştur
         File testDir = new File("test42");
