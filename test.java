@@ -5,7 +5,7 @@ import java.io.IOException;
 public class CreateTestDirectory {
     public static void main(String[] args) {
         // "/home/test" adında bir klasör oluştur
-        File testDir = new File("/home/test");
+        File testDir = new File("~/test");
 
         if (!testDir.exists()) {
             if (testDir.mkdir()) {
