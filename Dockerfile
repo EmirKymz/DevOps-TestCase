@@ -2,13 +2,13 @@
 FROM openjdk:17
 
 # Uygulama dosyasını konteynere kopyala
-COPY App.java /usr/src/myapp/src
+COPY test.java /usr/src/myapp/src
 
 # Çalışma dizinine geç
 WORKDIR /usr/src/myapp
 
 # Java dosyasını derle
-RUN javac App.java
+RUN javac src/test.java
 
 # Uygulamayı çalıştır
-CMD ["java", "-cp", "/usr/src/myapp/src", "App"]
+CMD ["java", "-cp", "/usr/src/myapp/src", "test"]
