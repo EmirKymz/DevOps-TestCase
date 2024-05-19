@@ -2,7 +2,7 @@
 FROM openjdk:17
 
 # Uygulama dosyasını konteynere kopyala
-COPY App.java /src
+COPY App.java /usr/src/myapp/src
 
 # Çalışma dizinine geç
 WORKDIR /usr/src/myapp
