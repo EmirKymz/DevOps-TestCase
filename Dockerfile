@@ -2,10 +2,10 @@
 FROM openjdk:17
 
 # Uygulama dosyasını konteynere kopyala
-COPY App.java /usr/src/myapp/src
+COPY App.java /src
 
 # Çalışma dizinine geç
-WORKDIR /usr/src/
+WORKDIR /usr/src/myapp
 
 # Java dosyasını derle
 RUN javac App.java
