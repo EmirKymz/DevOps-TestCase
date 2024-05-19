@@ -5,7 +5,7 @@ FROM openjdk:17
 COPY App.java /usr/src/myapp/src
 
 # Çalışma dizinine geç
-WORKDIR /usr/src/myapp
+WORKDIR /usr/src/myapp/src
 
 # Java dosyasını derle
 RUN javac App.java
