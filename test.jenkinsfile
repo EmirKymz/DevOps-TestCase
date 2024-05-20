@@ -1,38 +1,71 @@
 pipeline {
-    agent any
+    agent {label 'master'}
+
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/EmirKymz/test'
+                git branch: 'main', url: 'https://github.com/EmirKymz/test'
             }
         }
-        stage('Build') {
+        stage('Compile') {
             steps {
-                sh './gradlew build'
+                sh 'javac test.java'
+            }
+        }
+        stage('Run') {
+            steps {
+                sh 'java test'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("emircan/java-uygulama:latest")
+                    docker.build("emirkymz/java-uygulama:latest")
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        docker.image("emircan/java-uygulama:latest").push()
-                    }
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword} docker.io"
+                    sh "docker tag emirkymz/java-uygulama:latest docker.io/emirkymz/java-uygulama:latest"
+                    sh 'docker push emirkymz/java-uygulama:latest'
                 }
             }
         }
         stage('Deploy') {
+            agent { label 'debian-2' }
             steps {
-                sshagent(['second-server-credentials']) {
-                    sh 'ssh -o StrictHostKeyChecking=no user@second-server "docker pull emircan/java-uygulama:latest && docker run -d -p 8080:8080 emircan/java-uygulama:latest"'
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword} docker.io"
+                        sh 'docker pull emirkymz/java-uygulama:latest'
+
+                        // Existing container removal
+                        sh '''
+                        if [ "$(docker ps -aq -f name=java-uygulama)" ]; then
+                            docker rm -f java-uygulama
+                        fi
+                        '''
+
+                        sh 'docker run -d --name java-uygulama -p 8080:8080 emirkymz/java-uygulama:latest'
+                    }
                 }
             }
         }
+        stage('Verify') {
+            agent { label 'debian-2' }
+                steps {
+                    script {
+                        sh "rm -rf /home/emircan1/return/*"
+                        def containerId = sh(script: "docker ps -aqf name=java-uygulama", returnStdout: true).trim()
+                        if (containerId.empty) {
+                            error "Container 'java-uygulama' bulunamadı!"
+                        }
+                        sh "docker cp ${containerId}:/usr/src/myapp/test42 /home/emircan1/return"
+                        sh "cat /home/emircan1/return/test42/readme.txt"
+                    }
+                }
+            }
     }
 }
