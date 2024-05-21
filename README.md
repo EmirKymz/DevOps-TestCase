@@ -13,10 +13,10 @@
 ## 2.2. Güvenlik Ayarları
 ### 2.1.1. Sudo Kurulumu
 - Güvenlik amacıyla sudo kuruldu ve sudoers dosyası düzenlendi.
-`apt-get install sudo`
-`visudo`
-`root ALL=(ALL:ALL) ALL` satırının altına aşağıdaki satır eklenir.
-`'kullaniciadi' ALL=(ALL:ALL) ALL` bu sayede kullanıcı sudo yetkisine sahip olur.
+- `apt-get install sudo`
+- `visudo`
+- `root ALL=(ALL:ALL) ALL` satırının altına aşağıdaki satır eklenir.
+- `'kullaniciadi' ALL=(ALL:ALL) ALL` bu sayede kullanıcı sudo yetkisine sahip olur.
 
 ### 2.1.2. SSH Güvenliği
 `apt-get install openssh-server`
