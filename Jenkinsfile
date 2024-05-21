@@ -25,10 +25,16 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) { // bu kısım docker huba push etmek için gerekli olan kullanıcı adı ve şifreyi alır
-                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword} docker.io" // bu kısım docker huba giriş yapar
-                    sh "docker tag emirkymz/java-uygulama:latest docker.io/emirkymz/java-uygulama:latest" // bu kısım docker image taglar
-                    sh 'docker push emirkymz/java-uygulama:latest' // bu kısım docker image pushlar
+                //withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) { // bu kısım docker huba push etmek için gerekli olan kullanıcı adı ve şifreyi alır
+                    //sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword} docker.io" // bu kısım docker huba giriş yapar
+                    //sh "docker tag emirkymz/java-uygulama:latest docker.io/emirkymz/java-uygulama:latest" // bu kısım docker image taglar
+                    //sh 'docker push emirkymz/java-uygulama:latest' // bu kısım docker image pushlar
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                    script {
+                        docker login username: ${env.dockerHubUser}, password: ${env.dockerHubPassword}
+                        docker push image:tag
+                        }
+                    }
                 }
             }
         }
