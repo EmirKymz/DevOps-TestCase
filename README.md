@@ -39,8 +39,8 @@
 
 # Adım 3: Jenkins Kurulumu
 ## 3.1. Java, wget, gnupg ve jenkins kurulumu
-- `apt-get install default-jdk`
-- `apt-get install wget`
+- `apt-get install default-jdk` Bu komut, Jenkins sunucusunda Java çalışma zamanı ortamını (JRE) ve Java geliştirme kitini (JDK) indirir ve kurar.
+- `apt-get install wget` wget komutu, internet üzerinden dosya indirmek için kullanılır. Jenkins paketlerini indirmek için gereklidir.
 - `apt-get install gnupg` birazdan jenkinsi kurarken kullanacağımız apt-key add komutu için gereklidir. 
         
 ### 3.1.1. Jenkins paketinin indirilmesi
