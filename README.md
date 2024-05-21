@@ -18,24 +18,29 @@
 - `root ALL=(ALL:ALL) ALL` satırının altına aşağıdaki satır eklenir.
 - `'kullaniciadi' ALL=(ALL:ALL) ALL` bu sayede kullanıcı sudo yetkisine sahip olur.
 
-### 2.1.2. SSH Güvenliği
+### 2.1.2. SSH Ayarlari
+- SSH = Secure Shell, uzak sunucuya güvenli bir şekilde bağlanmak için kullanılan bir protokoldür. SSH, şifreleme ve kimlik doğrulama tekniklerini kullanarak güvenli bir bağlantı sağlar.
 - `apt-get install openssh-server`
-- SSH güvenliği için sshd_config dosyası düzenlendi.
+- SSH ayarlamalari için sshd_config dosyası düzenlendi.
 - `nano /etc/ssh/sshd_config`
-- Port XXXX olarak belirlendi.
+- 14.satırda bulunan Port XXXX olarak belirlendi.
 - `systemctl restart sshd` yaptığımız değişiklikler kaydedilsin diye restart atıldı.
 ### 2.1.3. Güvenlik Duvarı
-- `apt-get install ufw` güvenlik duvarı olan ufw (uncomplicated firewall) kuruldu.
+- ufw = Uncomplicated Firewall, Ubuntu ve Debian tabanlı sistemlerde kullanılan bir güvenlik duvarı yazılımıdır. ufw, güvenlik duvarı kurallarını yönetmek için basit bir arayüz sağlar.
+- `apt-get install ufw` => güvenlik duvarı olan ufw (uncomplicated firewall) kuruldu. Çünkü güvenlik duvarı olmadan sunucu açık bir şekilde internete bağlanmış olur. Bu durumda sunucu saldırılara açık hale gelir.
 - `ufw enable`
-- `ufw allow 4243`
+- `ufw allow XXXX` => XXXX yerine belirlediğimiz port numarası yazılır. Ama bu port numarası ssh portu olmamalıdır. Çünkü ssh bağlantısı yapacağımız için bu ssh portuna ufw ile izin vermemiz gerekmektedir.
 - `ufw allow 443` => Jenkins ssl Web sunucu için
     
 ## 2.3. Git, Docker Kurulumu
+- git = Git, dağıtılmış bir sürüm kontrol sistemidir. Git, yazılım geliştirme projelerinde kaynak kodlarını yönetmek için kullanılır.
+- docker = Docker, konteyner tabanlı uygulamaları oluşturmak ve çalıştırmak için kullanılan bir platformdur.
 - `apt-get install git`
 - `sudo apt install docker.io`
 - `sudo systemctl start docker` Bu komut, Docker servisini başlatır. Docker servisi, Jenkins sunucusunda konteyner tabanlı uygulamaları oluşturmak ve çalıştırmak için kullanılır.
 - `sudo systemctl enable docker` Bu komut, Docker servisinin otomatik olarak başlamasını sağlar. Bu komut, Docker servisinin sistem başlangıcında otomatik olarak başlamasını sağlar.
 - `sudo usermod -aG docker 'username'` Bu komut, 'username' kullanıcısını Docker grubuna ekler. Bu işlem, 'username' kullanıcısının Docker komutlarını çalıştırmasına izin verir.
+- `sudo usermod -aG docker 'jenkins'` Aynı işlemi jenkins kullanıcısı için de yapıyoruz. Çünkü Jenkins pipeline'ında Docker komutlarını çalıştıracağız.
 
 # Adım 3: Jenkins Kurulumu
 ## 3.1. Java, wget, gnupg ve jenkins kurulumu
@@ -196,4 +201,7 @@ WantedBy=multi-user.target  => Bu direktif, bir servisin hangi hedeflerde başla
 - $ işareti değişken tanımlamak için kullanılır. Bu sayede JENKINS_URL, JOB_NAME, USER ve API_TOKEN tanımlayabiliriz.
 - -k flagi curl komutunda kullanıldığında, curl'un SSL sertifikalarını kontrol etmemesini sağlar. Bu flagi kullanmamım sebebi SSL sertifikamız güvenilir bir otorite tarafından imzalanmadığı içindir.
 - jenkins cli kullanmama sebebimde aynı şekilde SSL sertifikamız güvenilir bir otorite tarafından imzalanmadığı için çok fazla hata ile karşılaştım bende alternatif bir yol olarak curl komutunu kullandım.
-- Jenkins URL, JOB_NAME, USER ve API_TOKEN değişkenlerini tanımlamak için aşağıdaki adımları uygulayabilirsiniz.
+
+# Adım 8: Sonuç
+- Bu adımların ardından Jenkins pipeline'ı başarıyla çalıştırıldı ve pipeline'ın adımları sırasıyla gerçekleştirildi.
+- Buraya kadar okuduğunuz için teşekkür ederim.
