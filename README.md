@@ -66,7 +66,8 @@
 - Bu komut, Jenkins web sunucusuna SSL şifrelemesi ekler ve Jenkins web sunucusuna erişim sağlar.
 
 - `sudo nano /etc/nginx/sites-available/jenkins` Bu komut, Nginx web sunucusunun Jenkins yapılandırma dosyasını açar. Bu dosya, Jenkins web sunucusuna SSL şifrelemesi ekler ve Jenkins web sunucusuna erişim sağlar.
-`server {
+```
+server {
         listen 80;
         server_name jenkins.example.com;
         return 301 https://$host$request_uri;
@@ -86,8 +87,8 @@
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
     }
-}`
-
+}
+```
 - `sudo ln -s /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/` Bu komut, Nginx web sunucusunun Jenkins yapılandırma dosyasını etkinleştirir. Bu sayede, Jenkins web sunucusuna erişim sağlar.
 - `sudo systemctl restart nginx` Bu komut, Nginx web sunucusunu yeniden başlatır. Bu komut, Jenkins web sunucusuna SSL şifrelemesi ekler ve Jenkins web sunucusuna erişim sağlar.
 - artık tarayıcıdan https://ipadresi/ adresine giderek Jenkins web arayüzüne erişebilirsiniz.
