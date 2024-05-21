@@ -98,8 +98,11 @@ server {
 }
 ```
 server listen 80 bloğu, Jenkins web sunucusuna gelen HTTP isteklerini HTTPS'e yönlendirir. Bu sayede, Jenkins web sunucusuna güvenli bir bağlantı sağlar.
+
 server listen 443 ssl bloğu, Jenkins web sunucusuna gelen HTTPS isteklerini Jenkins web sunucusuna yönlendirir.
+
 ssl_certificate /etc/nginx/jenkins.crt; ve ssl_certificate_key /etc/nginx/jenkins.key; satırları, Jenkins web sunucusuna SSL şifrelemesi ekler.
+
 location / bloğu, Jenkins web sunucusuna gelen istekleri Jenkins web sunucusuna yönlendirir.
 
 - `sudo ln -s /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/` Bu komut, Nginx web sunucusunun Jenkins yapılandırma dosyasını etkinleştirir. Bu sayede, Jenkins web sunucusuna erişim sağlar.
