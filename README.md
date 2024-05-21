@@ -176,15 +176,16 @@
 
 # Adım 7: Bash Script
 `sudo nano /etc/systemd/system/run-jenkins-pipeline.service`
-
-`[Unit]
+```
+[Unit]
 Description=Run Jenkins Pipeline at Startup
 After=network.target jenkins.service 
 Requires=jenkins.service
 [Service]
 ExecStart=/bin/bash /home/emircan/startup.sh
 [Install]
-WantedBy=multi-user.target`
+WantedBy=multi-user.target
+```
 - Scripti ilk yazdığımda after ve requires kısmını yazmamıştım ve script çalışmıyordu. Bunun sebebi ise jenkinsin daha yavaş başlaması ve scriptin jenkins başlamadan çalışmaya başlamasıydı.
     
 - `sudo systemctl enable run-jenkins-pipeline.service`
