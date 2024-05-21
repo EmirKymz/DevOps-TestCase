@@ -28,9 +28,7 @@
 - `apt-get install ufw` güvenlik duvarı olan ufw (uncomplicated firewall) kuruldu.
 - `ufw enable`
 - `ufw allow 4243`
-- `ufw allow 80` => Jenkins ssl Web sunucu için
 - `ufw allow 443` => Jenkins ssl Web sunucu için
-- `ufw allow 8080` => Jenkins Web sunucu için
     
 ## 2.3. Git, Docker Kurulumu
 - `apt-get install git`
