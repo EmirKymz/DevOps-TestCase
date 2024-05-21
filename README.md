@@ -178,13 +178,13 @@
 `sudo nano /etc/systemd/system/run-jenkins-pipeline.service`
 ```
 [Unit]
-Description=Run Jenkins Pipeline at Startup
-After=network.target jenkins.service 
-Requires=jenkins.service
+Description=Run Jenkins Pipeline at Startup  => Servis açıklaması
+After=network.target jenkins.service  => Bu direktif, bir servisin başka bir servis veya hedef (target) başlatıldıktan sonra başlatılmasını belirtir. Ancak, bu sadece başlatılma sırasını tanımlar; diğer servisin çalışmasının zorunlu olduğunu belirtmez.
+Requires=jenkins.service  => Bu direktif, bir servisin başka bir servisin çalışmasına bağlı olduğunu belirtir. Eğer belirtilen bağımlı servis başlatılamazsa, bu servis de başlatılmaz.
 [Service]
-ExecStart=/bin/bash /home/emircan/startup.sh
+ExecStart=/bin/bash /home/emircan/startup.sh  => Servisin çalıştırılacak komut
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target  => Bu direktif, bir servisin hangi hedeflerde başlatılacağını belirtir. Bu durumda, servis multi-user.target hedefinde başlatılacaktır.
 ```
 - Scripti ilk yazdığımda after ve requires kısmını yazmamıştım ve script çalışmıyordu. Bunun sebebi ise jenkinsin daha yavaş başlaması ve scriptin jenkins başlamadan çalışmaya başlamasıydı.
     
