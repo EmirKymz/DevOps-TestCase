@@ -67,3 +67,12 @@ pipeline {
         }
     }
 }
+
+// burda sirasiyla checkout, compile, run, build docker image, push docker image, deploy ve verify adinda 7 adet stage tanimladim
+// checkout stage'inde git repository'den kodlari clone ediyoruz
+// compile stage'inde java kodlarini compile ediyoruz
+// run stage'inde java kodlarini calistiriyoruz
+// build docker image stage'inde docker image olusturuyoruz
+// push docker image stage'inde docker image'i DockerHub'a pushluyoruz
+// deploy stage'inde DockerHub'dan image'i cekip container'i calistiriyoruz
+// verify stage'inde container'dan dosyalarimizi alip dosyalarin icerigini kontrol ediyoruz
