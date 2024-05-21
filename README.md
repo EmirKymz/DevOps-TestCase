@@ -217,4 +217,5 @@ WantedBy=multi-user.target  => Bu direktif, bir servisin hangi hedeflerde başla
 
 # Adım 8: Sonuç
 - Bu adımların ardından Jenkins pipeline'ı başarıyla çalıştırıldı ve pipeline'ın adımları sırasıyla gerçekleştirildi.
-* Buraya kadar okuduğunuz için teşekkür ederim.
+
+Buraya kadar okuduğunuz için teşekkür ederim.
